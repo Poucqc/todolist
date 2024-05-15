@@ -4,6 +4,7 @@ import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 
 @Service
@@ -19,17 +20,20 @@ class TodoServiceImpl: TodoService {
         TODO("Not yet implemented")
     }
 
+    @Transactional
     override fun createTodo(request: CreateTodoRequest): TodoResponse {
         // TODO : todo 생성 후 반환
         TODO("Not yet implemented")
     }
 
+    @Transactional
     override fun updateTodo(todoId: Long, request: UpdateTodoRequest): TodoResponse {
         // TODO : id 에 해당하는 todo 를 수정 후 반환
         // TODO : 해당하는 id 없을경우 throw TodoNotFoundException
         TODO("Not yet implemented")
     }
 
+    @Transactional
     override fun deleteTodo(todoId: Long) {
         // TODO : id 에 해당하는 todo 삭제
         // TODO : 해당하는 id 없을경우 throw TodoNotFoundException
