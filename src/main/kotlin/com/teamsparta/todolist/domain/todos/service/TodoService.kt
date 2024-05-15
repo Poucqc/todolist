@@ -1,6 +1,5 @@
 package com.teamsparta.todolist.domain.todos.service
 
-import com.sun.tools.javac.comp.Todo
 import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
