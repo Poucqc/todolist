@@ -1,7 +1,8 @@
 package com.teamsparta.todolist.domain.todos.model
 
-import com.teamsparta.todolist.domain.user.model.User
+import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import jakarta.persistence.*
+import java.time.LocalDateTime
 
 
 @Entity
@@ -21,13 +22,20 @@ class Todos(
     var content: String? = null,
 
     @Column(name = "createdAt", nullable = false)
-    var createdAt: String,
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "user_id")
-    var user: User
+    var createdAt: LocalDateTime
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+}
+
+fun Todos.toResponse(): TodoResponse {
+    return TodoResponse(
+        id = id!!,
+        title = title,
+        authorId = authorId,
+        author = author,
+        content = content,
+        createdAt = createdAt
+    )
 }
