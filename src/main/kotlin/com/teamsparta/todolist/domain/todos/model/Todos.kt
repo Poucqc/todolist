@@ -1,11 +1,12 @@
 package com.teamsparta.todolist.domain.todos.model
 
+import com.teamsparta.todolist.domain.user.model.User
 import jakarta.persistence.*
 
 
 @Entity
 @Table(name = "todos")
-class todos(
+class Todos(
 
     @Column(name = "authorId", nullable = false)
     var authorId: Long,
@@ -20,8 +21,11 @@ class todos(
     var content: String? = null,
 
     @Column(name = "createdAt", nullable = false)
-    var createdAt: String
+    var createdAt: String,
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @JoinColumn(name = "user_id")
+    var user: User
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
