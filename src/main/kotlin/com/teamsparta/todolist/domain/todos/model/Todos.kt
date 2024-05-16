@@ -9,9 +9,6 @@ import java.time.LocalDateTime
 @Table(name = "todos")
 class Todos(
 
-    @Column(name = "authorId", nullable = false)
-    var authorId: Long,
-
     @Column(name = "author", nullable = false)
     var author: String,
 
@@ -33,7 +30,6 @@ fun Todos.toResponse(): TodoResponse {
     return TodoResponse(
         id = id!!,
         title = title,
-        authorId = authorId,
         author = author,
         content = content,
         createdAt = createdAt
