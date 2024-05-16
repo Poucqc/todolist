@@ -7,7 +7,7 @@
  5. Todo 삭제 (deleteTodo) : 특정 Todo 를 삭제할 수 있습니다
 ---------------
 DDD / UCD / ERD / API 명세서 : https://www.notion.so/30dcb64193cb45769c9ea95c40c65956
-Language : Kotlin
-Framework : Spring boot
-DB : Supabase | PorgreSQL
-API TEST : Swagger
+Language : Kotlin.
+Framework : Spring boot.
+DB : Supabase | PorgreSQL.
+API TEST : Swagger.
