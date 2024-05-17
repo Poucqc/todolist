@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query
 
 interface TodoRepository: JpaRepository<Todos, Long> {
 
-    @Query("select t from Todos t order by t.createdAt desc")
-    fun findAllTodos(): List<Todos>
+
+    fun findAllTodosByOrderByCreatedAtDesc(): List<Todos>
+
+    // 오름차순 메서드 따로 구현
 }
