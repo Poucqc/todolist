@@ -1,4 +1,5 @@
-## TODOLIST v 0.0.1
+# TODOLIST 
+## v 0.0.1
 ### 기능소개
  1. 조회 (getAllTodos) : 작성된 Todo 를 작성일 내림차순 리스트로 받아 올 수 있습니다.
  2. 개별 조회 (getTodoById) : 특정 Todo 를 받아 올 수 있습니다
