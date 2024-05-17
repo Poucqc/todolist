@@ -2,13 +2,14 @@ package com.teamsparta.todolist.domain.todos.service
 
 import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
+import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
 
 interface TodoService {
 
     fun getAllTodos() : List<TodoResponse>
 
-    fun getTodoById(todoId: Long) : TodoResponse
+    fun getTodoById(todoId: Long) : TodoWithCommentResponse
 
     fun createTodo(request: CreateTodoRequest) : TodoResponse
 
