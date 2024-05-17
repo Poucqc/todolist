@@ -25,7 +25,10 @@ class Todos(
     var createdAt: LocalDateTime,
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, orphanRemoval = true)
-    var comments: MutableList<Comment> = mutableListOf()
+    var comments: MutableList<Comment> = mutableListOf(),
+
+    @Column(name = "isDone", nullable = false)
+    var isDone: Boolean = false
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
