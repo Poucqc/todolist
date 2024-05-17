@@ -43,7 +43,7 @@ class TodoServiceImpl(
     override fun updateTodo(todoId: Long, request: UpdateTodoRequest): TodoResponse {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
         val (title, content) = request
-        todo.title = todo.title
+        todo.title = title
         todo.content = content
 
         return todoRepository.save(todo).toResponse()
@@ -55,3 +55,5 @@ class TodoServiceImpl(
         todoRepository.delete(todo)
     }
 }
+
+//test
