@@ -1,6 +1,6 @@
 package com.teamsparta.todolist.domain.todos.service
 
-import com.teamsparta.todolist.domain.exception.TodoNotFoundException
+import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
@@ -23,7 +23,7 @@ class TodoServiceImpl(
     }
 
     override fun getTodoById(todoId: Long): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         return todo.toResponse()
     }
 
@@ -41,7 +41,7 @@ class TodoServiceImpl(
 
     @Transactional
     override fun updateTodo(todoId: Long, request: UpdateTodoRequest): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         val (title, content) = request
         todo.title = title
         todo.content = content
@@ -51,7 +51,7 @@ class TodoServiceImpl(
 
     @Transactional
     override fun deleteTodo(todoId: Long) {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         todoRepository.delete(todo)
     }
 }
