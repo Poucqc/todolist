@@ -8,6 +8,5 @@ data class TodoResponse(
     val title: String,
     val author: String,
     val content: String?,
-    val createdAt: LocalDateTime,
-    val comments: List<CommentResponse>
+    val createdAt: LocalDateTime
 )
