@@ -1,4 +1,9 @@
 package com.teamsparta.todolist.domain.comment.repository
 
-interface CommentRepository {
+import com.teamsparta.todolist.domain.comment.model.Comment
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface CommentRepository: JpaRepository<Comment, Long> {
+
+    fun findByTodoId(id: Long): Comment?
 }
