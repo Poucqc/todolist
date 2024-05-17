@@ -17,7 +17,7 @@ class CommentController(
     private val commentService: CommentService
 ) {
 
-    @GetMapping()
+    @PostMapping()
     fun addComment(
         @PathVariable("todoId") todoId: Long,
         @RequestBody addCommentRequest: AddCommentRequest
