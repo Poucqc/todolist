@@ -1,6 +1,5 @@
 package com.teamsparta.todolist.domain.comment.model
 
-import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.todos.model.Todos
 import jakarta.persistence.*
 
@@ -24,12 +23,4 @@ class Comment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-}
-
-fun Comment.Response (): CommentResponse {
-    return CommentResponse(
-        id = id!!,
-        author = author,
-        comment = comment
-    )
 }
