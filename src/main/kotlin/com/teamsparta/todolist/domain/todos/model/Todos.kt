@@ -1,9 +1,10 @@
 package com.teamsparta.todolist.domain.todos.model
 
+import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
+import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
 import jakarta.persistence.*
-import org.hibernate.annotations.Comments
 import java.time.LocalDateTime
 
 
@@ -24,7 +25,7 @@ class Todos(
     var createdAt: LocalDateTime,
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, orphanRemoval = true)
-    var comments : MutableList<Comment> = mutableListOf()
+    var comments: MutableList<Comment> = mutableListOf()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,3 +41,15 @@ fun Todos.toResponse(): TodoResponse {
         createdAt = createdAt
     )
 }
+
+fun Todos.toResponseWithComments(comments: List<Comment>?): TodoWithCommentResponse {
+    return TodoWithCommentResponse(
+        id = id!!,
+        title = title,
+        author = author,
+        content = content,
+        createdAt = createdAt,
+        comments = comments?.map{ CommentResponse(it.author, it.comment) }
+    )
+}
+
