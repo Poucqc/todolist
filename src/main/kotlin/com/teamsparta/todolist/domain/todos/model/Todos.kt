@@ -25,7 +25,7 @@ class Todos(
     var createdAt: LocalDateTime,
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, orphanRemoval = true)
-    var comment: MutableList<Comment>? = mutableListOf(),
+    var comments: MutableList<Comment>? = mutableListOf(),
 
     @Column(name = "isDone", nullable = false)
     var isDone: Boolean = false
@@ -53,7 +53,7 @@ fun Todos.toResponseWithComments(comments: List<Comment>?): TodoWithCommentRespo
         author = author,
         content = content,
         createdAt = createdAt,
-        comments = comment?.map{ CommentResponse(it.author, it.comment) }
+        comments = comments?.map{ CommentResponse(it.author, it.comment) }
     )
 }
 
