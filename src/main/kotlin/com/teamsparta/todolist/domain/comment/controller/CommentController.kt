@@ -4,7 +4,6 @@ import com.teamsparta.todolist.domain.comment.dto.AddCommentRequest
 import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.dto.DeleteCommentRequest
 import com.teamsparta.todolist.domain.comment.dto.UpdateCommentRequest
-import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.comment.service.CommentService
 import io.swagger.v3.oas.annotations.parameters.RequestBody
 import org.springframework.http.HttpStatus
