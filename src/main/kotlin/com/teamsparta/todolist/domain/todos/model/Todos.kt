@@ -41,7 +41,8 @@ fun Todos.toResponse(): TodoResponse {
         title = title,
         author = author,
         content = content,
-        createdAt = createdAt
+        createdAt = createdAt,
+        isDone = isDone
     )
 }
 
