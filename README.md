@@ -22,6 +22,7 @@ DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb641
 Language : Kotlin <br>
 IDE : IntelliJ <br>
 SDK : termurin-17 java version 17.0.11 <br>
+JDK: Eclipse Adoptium\jdk-17.0.11.9-hotspot <br>
 Framework : Spring Boot v.3.2.5 <br>
 DB : Supabase | Postgres <br>
-API TEST : Swagger <br>
+API TEST : Swagger
