@@ -71,12 +71,8 @@ class TodoServiceImpl(
         return todoRepository.save(todo).toResponse()
     }
 
-    override fun getDoneTodos(): List<TodoResponse> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUndoneTodos(): List<TodoResponse> {
-        TODO("Not yet implemented")
+    override fun getByIsDoneStatusTodos(isDone: Boolean): List<TodoResponse>? {
+        return todoRepository.findTodosByIsDoneByOrderByCreatedAtDesc(isDone)?.map { it.toResponse() } ?: throw ModelNotFoundException("$isDone Todo", null)
     }
 
 }

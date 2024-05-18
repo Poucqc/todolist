@@ -11,6 +11,7 @@ interface TodoRepository: JpaRepository<Todos, Long> {
 
     fun findAllTodosByOrderByCreatedAtAsc(): List<Todos>
 
+    @Query("SELECT t FROM Todos t WHERE t.isDone = :isDone ORDER BY t.createdAt DESC")
     fun findTodosByIsDoneByOrderByCreatedAtDesc(isDone: Boolean): List<Todos>?
 
 }

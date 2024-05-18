@@ -21,7 +21,6 @@ interface TodoService {
 
     fun markTodoAsDone(todoId: Long) : TodoResponse
 
-    fun getDoneTodos() : List<TodoResponse>
+    fun getByIsDoneStatusTodos(isDone: Boolean) : List<TodoResponse>?
 
-    fun getUndoneTodos() : List<TodoResponse>
 }
