@@ -105,11 +105,14 @@
 -------------------------------
 ### DDD v0.0.2
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F072a7b34-9d68-4308-8eb5-c7ecaf395620%2FDDD_v0.0.2.jpg?table=block&id=ff86ba68-e25d-431f-acc1-05e9debadc41&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
+
 ### UCD v0.0.2
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Fdfee101c-c5bc-417f-a5da-9c1e5133efe8%2FUCD_v0.0.2.jpg?table=block&id=07f7ed76-6b0e-45f1-8ebf-ff649e7eca5f&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
+
 ### ERD v0.0.2
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Ffc9cea2b-ebf3-41a1-9f9c-1019337c7a0d%2FERD_v0.0.2.png?table=block&id=b9ac54f2-1988-46f0-95da-36f2468e11c3&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
-### 명세서 v0.0.2
+
+### API 명세서 v0.0.2
 
 -----------------
 DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb64193cb45769c9ea95c40c65956?pvs=4 <br>
