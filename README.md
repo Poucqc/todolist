@@ -9,6 +9,7 @@
 3. Todo 생성 (creatTodo) : Todo를 생성할 수 있습니다. request 는 author, title, content(nullable) 입니다.
 4. Todo 수정 (updateTodo) : 특정 Todo 를 수정할 수 있습니다. request 는 title, content(nullable) 입니다. 작성시간은 변경되지 않습니다
 5. Todo 삭제 (deleteTodo) : 특정 Todo 를 삭제할 수 있습니다
+6. id 검증 : 개별 Todo 에 대해 조회, 수정, 삭제시 해당 id 가 없을경우 에외처리 ModelNotFound 가 실행됩니다
 
 -----------------------------------------
 
@@ -94,6 +95,8 @@
 7. 댓글 작성 : addComment 메서드로 개별 Todo 에 댓글을 작성 할 수 있습니다 댓글 입력시 비밀번호를 같이 입력 받습니다
 8. 댓글 수정, 삭제 : 해당 댓글을 수정, 삭제할 수 있습니다 단, 작성시 입력한 비밀번호가 일치 할 시 작동합니다
 9. 비밀번호 관리 : 입력된 비밀번호는 SpringBoot 의 BCryptPasswordEncoer 를 통해 해쉬화 되어 안전하게 db에 저장됩니다
+10. id 검증 : Todo 와 마찬가지로 Comment 의 id 검증 과 예외처리가 실행됩니다
+11. 비밀번호 검증 : 비밀번호가 틀렸을시 
 -------------------------------
 ### DDD v0.0.2
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F072a7b34-9d68-4308-8eb5-c7ecaf395620%2FDDD_v0.0.2.jpg?table=block&id=ff86ba68-e25d-431f-acc1-05e9debadc41&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
