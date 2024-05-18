@@ -9,7 +9,6 @@ import com.teamsparta.todolist.domain.comment.model.toCommentResponse
 import com.teamsparta.todolist.domain.comment.repository.CommentRepository
 import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
-import com.teamsparta.todolist.domain.todos.model.Todos
 import com.teamsparta.todolist.domain.todos.repository.TodoRepository
 import com.teamsparta.todolist.security.PasswordManager
 import org.springframework.data.repository.findByIdOrNull
@@ -31,7 +30,7 @@ class CommentServiceImpl(
             Comment(
                 author = request.author,
                 password = request.password,
-                content = request.content,
+                commentText = request.commentText,
                 todo = todo
             )
         ).toCommentResponse()
@@ -39,23 +38,23 @@ class CommentServiceImpl(
 
     @Transactional
     override fun updateComment(todoId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
-        val (todos, comment) = validateCommentAccess(todoId, commentId, request.password)
-        val commentContent = request.content
+        val comment = validateCommentAccess(todoId, commentId, request.password)
+        val commentContent = request.commentText
         return commentRepository.save(comment).toCommentResponse()
     }
 
     @Transactional
     override fun deleteComment(todoId: Long, commentId: Long, request: DeleteCommentRequest) {
-        val (todos, comment) = validateCommentAccess(todoId, commentId, request.password)
+        val comment= validateCommentAccess(todoId, commentId, request.password)
         commentRepository.delete(comment)
     }
 
-    private fun validateCommentAccess(todoId: Long, commentId: Long, password: String): Pair<Todos, Comment> {
+    private fun validateCommentAccess(todoId: Long, commentId: Long, password: String): Comment {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("comment", commentId)
         if (!passwordManager.isPasswordValid(comment.password, password)) {
             throw PasswordNotMatchedException(commentId)
         }
-        return Pair(todo, comment)
+        return comment
     }
 }
