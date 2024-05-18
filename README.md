@@ -20,6 +20,8 @@
 -----------------
 DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb64193cb45769c9ea95c40c65956?pvs=4 <br>
 Language : Kotlin <br>
-Framework : Spring boot <br>
+IDE : IntelliJ
+SDK : termurin-17 java version 17.0.11 
+Framework : Spring Boot v.3.2.5 <br>
 DB : Supabase | Postgres <br>
 API TEST : Swagger <br>
