@@ -113,6 +113,88 @@
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Ffc9cea2b-ebf3-41a1-9f9c-1019337c7a0d%2FERD_v0.0.2.png?table=block&id=b9ac54f2-1988-46f0-95da-36f2468e11c3&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
 
 ### API 명세서 v0.0.2
+<table>
+  <tr>
+    <th>설명</th>
+    <th>method</th>
+    <th>End point</th>
+    <th>Request</th>
+    <th>Status</th>
+    <th>Response</th>
+  </tr>
+  <tr>
+    <td>목록조회 내림차순</td>
+    <td>GET</td>
+    <td>/todos/desc</td>
+    <td></td>
+    <th>202 OK</th>
+    <th>Todo 목록 내림차순 정렬</th>
+  </tr>
+  <tr>
+    <td>목록조회 오름차순</td>
+    <td>GET</td>
+    <td>/todos/asc</td>
+    <td></td>
+    <th>202 OK</th>
+    <th>Todo 목록 오름차순 정렬</th>
+  </tr>
+  <tr>
+    <td>개별조회</td>
+    <td>GET</td>
+    <td>/todos/{todo-Id}</td>
+    <td>todoId</td>
+    <th>202 OK</th>
+    <th>해당 ID Todo와 댓글</th>
+  </tr>
+  <tr>
+    <td>생성</td>
+    <td>POST</td>
+    <td>/todos</td>
+    <td>author,title,content</td>
+    <th>201 CREATED</th>
+    <th>작성된 Todo와 댓글</th>
+  </tr>
+  <tr>
+    <td>수정</td>
+    <td>PUT</td>
+    <td>/todos/{todo-id}</td>
+    <td>title,content</td>
+    <th>202 OK</th>
+    <th>수정된 Todo와 댓글</th>
+  </tr>
+  <tr>
+    <td>삭제</td>
+    <td>DELETE</td>
+    <td>/todos/{todo-id}</td>
+    <td></td>
+    <th>204 NO CONTENT</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>댓글 작성</td>
+    <td>POST</td>
+    <td>/todos/{todo-id}</td>
+    <td>author,password,commentContent</td>
+    <th>202 OK</th>
+    <th>해당 Todo 와 댓글</th>
+  </tr>
+  <tr>
+    <td>댓글 수정</td>
+    <td>PATCH</td>
+    <td>/todos/{todo-id}/{comment-id}</td>
+    <td>password,commentContent</td>
+    <th>202 OK</th>
+    <th>해당 Todo 와 댓글</th>
+  </tr>
+  <tr>
+    <td>댓글 삭제</td>
+    <td>DELETE</td>
+    <td>/todos/{todo-id}/{comment-id}</td>
+    <td>password</td>
+    <th>204 NO CONTENT</th>
+    <th></th>
+  </tr>
+</table>
 
 -----------------
 DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb64193cb45769c9ea95c40c65956?pvs=4 <br>
