@@ -44,6 +44,8 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
 
     runtimeOnly("org.postgresql:postgresql")
 
