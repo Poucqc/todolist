@@ -21,5 +21,5 @@
 DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb64193cb45769c9ea95c40c65956?pvs=4 <br>
 Language : Kotlin <br>
 Framework : Spring boot <br>
-DB : Supabase | PorgreSQL <br>
+DB : Supabase | Postgres <br>
 API TEST : Swagger <br>
