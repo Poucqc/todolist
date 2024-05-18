@@ -15,6 +15,7 @@
 
 
 ### ERD
+![ERD v0 0 1 수정본](https://github.com/Poucqc/todolist/assets/163396796/adb2d944-dcc8-4925-b969-97bc280fc2ad)
 
 
 ### API 명세서
