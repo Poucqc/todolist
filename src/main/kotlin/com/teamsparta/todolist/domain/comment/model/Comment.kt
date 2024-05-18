@@ -15,7 +15,7 @@ class Comment(
     val password: String,
 
     @Column(name = "comment", nullable = false)
-    val comment: String,
+    val commentContent: String,
 
     @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
     @JoinColumn(name = "todoId", nullable = false)
@@ -29,6 +29,6 @@ class Comment(
 fun Comment.toCommentResponse() : CommentResponse {
     return CommentResponse(
         author = author,
-        comment = comment
+        comment = commentContent
     )
 }
