@@ -24,7 +24,8 @@
 
 ![ERD v0 0 1 수정본](https://github.com/Poucqc/todolist/assets/163396796/adb2d944-dcc8-4925-b969-97bc280fc2ad)
 
-### API 명세서 v0.0.1
+### API 명세서 v0.0.1 
+(상세 body 는 Notion 에 게재해 두었습니다)
 
 <table>
   <tr>
@@ -78,15 +79,6 @@
   </tr>
 </table>
 
-
-[TODO 조회](https://www.notion.so/TODO-63c93f72c1ae4494a48d5b3b8df89889?pvs=21)
-
-[TODO 생성](https://www.notion.so/TODO-b71a4ff3aaa147b1bbc7367e53d6d5df?pvs=21)
-
-[TODO 수정](https://www.notion.so/TODO-2789afb7aec6456faa1dc0b7ea75b689?pvs=21)
-
-[TODO 삭제](https://www.notion.so/TODO-1667f7cefa9241e19ec80c2cdc88fc8b?pvs=21)
-
 -------------------------
 
 ## v 0.0.2
@@ -113,6 +105,7 @@
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Ffc9cea2b-ebf3-41a1-9f9c-1019337c7a0d%2FERD_v0.0.2.png?table=block&id=b9ac54f2-1988-46f0-95da-36f2468e11c3&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
 
 ### API 명세서 v0.0.2
+(상세 body 는 Notion 에 게재해 두었습니다)
 <table>
   <tr>
     <th>설명</th>
