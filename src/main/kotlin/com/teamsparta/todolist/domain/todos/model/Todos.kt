@@ -21,13 +21,13 @@ class Todos(
     @Column(name = "content")
     var content: String? = null,
 
-    @Column(name = "createdAt", nullable = false)
+    @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime,
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, orphanRemoval = true)
     var comments: MutableList<Comment>? = mutableListOf(),
 
-    @Column(name = "isDone", nullable = false)
+    @Column(name = "is_done", nullable = false)
     var isDone: Boolean = false
 ) {
     @Id

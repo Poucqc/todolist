@@ -18,7 +18,7 @@ class Comment(
     val commentContent: String,
 
     @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
-    @JoinColumn(name = "todoId", nullable = false)
+    @JoinColumn(name = "todo_id", nullable = false)
     var todo : Todos
 ) {
     @Id
