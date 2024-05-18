@@ -7,7 +7,9 @@ import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
 
 interface TodoService {
 
-    fun getAllTodos() : List<TodoResponse>
+    fun getAllTodosDesc() : List<TodoResponse>
+
+    fun getAllTodosAsc() : List<TodoResponse>
 
     fun getTodoById(todoId: Long) : TodoWithCommentResponse
 
@@ -16,4 +18,10 @@ interface TodoService {
     fun updateTodo(todoId: Long, request: UpdateTodoRequest) : TodoResponse
 
     fun deleteTodo(todoId: Long)
+
+    fun markTodoAsDone(todoId: Long) : TodoResponse
+
+    fun getDoneTodos() : List<TodoResponse>
+
+    fun getUndoneTodos() : List<TodoResponse>
 }

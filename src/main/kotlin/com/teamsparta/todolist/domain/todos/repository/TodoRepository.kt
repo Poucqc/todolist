@@ -9,5 +9,8 @@ interface TodoRepository: JpaRepository<Todos, Long> {
 
     fun findAllTodosByOrderByCreatedAtDesc(): List<Todos>
 
-    // 오름차순 메서드 따로 구현
+    fun findAllTodosByOrderByCreatedAtAsc(): List<Todos>
+
+    fun findTodosByIsDoneByOrderByCreatedAtDesc(isDone: Boolean): List<Todos>?
+
 }

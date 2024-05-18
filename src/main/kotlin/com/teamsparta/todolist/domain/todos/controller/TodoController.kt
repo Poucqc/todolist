@@ -16,10 +16,17 @@ class TodoController(
 ) {
 
     @GetMapping()
-    fun getAllTodos() : ResponseEntity<List<TodoResponse>> {
+    fun getAllTodosDesc() : ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodos())
+            .body(todoService.getAllTodosDesc())
+    }
+
+    @GetMapping()
+    fun getAllTodosAsc() : ResponseEntity<List<TodoResponse>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.getAllTodosAsc())
     }
 
     @GetMapping("/{todoId}")
@@ -57,5 +64,14 @@ class TodoController(
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()
+    }
+
+    @PatchMapping("/{todoId}/toggle")
+    fun markTodoAsDone(
+        @PathVariable todoId: Long
+    ) : ResponseEntity<TodoResponse> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.markTodoAsDone(todoId))
     }
 }
