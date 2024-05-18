@@ -15,14 +15,14 @@ class TodoController(
     private val todoService: TodoService
 ) {
 
-    @GetMapping()
+    @GetMapping("/desc")
     fun getAllTodosDesc() : ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.getAllTodosDesc())
     }
 
-    @GetMapping()
+    @GetMapping("/asc")
     fun getAllTodosAsc() : ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
