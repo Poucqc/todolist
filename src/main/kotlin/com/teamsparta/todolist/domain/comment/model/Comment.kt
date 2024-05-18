@@ -15,11 +15,12 @@ class Comment(
     val password: String,
 
     @Column(name = "comment", nullable = false)
-    val commentText : String,
+    var commentText : String,
 
     @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id", nullable = false)
     var todo: Todos
+    // 이거 왜 사용되지 않는다고 뜨나?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
