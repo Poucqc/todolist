@@ -31,7 +31,7 @@ class CommentServiceImpl(
             Comment(
                 author = request.author,
                 password = request.password,
-                commentContent = request.comment,
+                content = request.content,
                 todo = todo
             )
         ).toCommentResponse()
@@ -40,7 +40,7 @@ class CommentServiceImpl(
     @Transactional
     override fun updateComment(todoId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
         val (todos, comment) = validateCommentAccess(todoId, commentId, request.password)
-        val commentContent = request.comment
+        val commentContent = request.content
         return commentRepository.save(comment).toCommentResponse()
     }
 

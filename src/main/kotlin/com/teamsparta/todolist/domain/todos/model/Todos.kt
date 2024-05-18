@@ -53,7 +53,7 @@ fun Todos.toResponseWithComments(comments: List<Comment>?): TodoWithCommentRespo
         author = author,
         content = content,
         createdAt = createdAt,
-        comments = comments?.map{ CommentResponse(it.author, it.commentContent) }
+        comments = comments?.map{ CommentResponse(it.author, it.content) }
     )
 }
 
