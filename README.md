@@ -174,7 +174,7 @@
     <td>댓글 작성</td>
     <td>POST</td>
     <td>/todos/{todo-id}</td>
-    <td>author,password,content</td>
+    <td>author,password,commentText</td>
     <th>202 OK</th>
     <th>해당 Todo 와 댓글</th>
   </tr>
@@ -182,7 +182,7 @@
     <td>댓글 수정</td>
     <td>PATCH</td>
     <td>/todos/{todo-id}/{comment-id}</td>
-    <td>password,content</td>
+    <td>password,commentText</td>
     <th>202 OK</th>
     <th>해당 Todo 와 댓글</th>
   </tr>
