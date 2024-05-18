@@ -6,7 +6,19 @@
  3. Todo 생성 (creatTodo) : Todo를 생성할 수 있습니다. request 는 author, title, content(nullable) 입니다.
  4. Todo 수정 (updateTodo) : 특정 Todo 를 수정할 수 있습니다. request 는 title, content(nullable) 입니다. 작성시간은 변경되지 않습니다
  5. Todo 삭제 (deleteTodo) : 특정 Todo 를 삭제할 수 있습니다
+### DDD
+<img width="3184" alt="DDD v0 0 1" src="https://github.com/Poucqc/todolist/assets/163396796/86daae99-81b5-450e-aa12-6daf7cb72496">
+### UCD
+
+
+### ERD
+
+
+### API 명세서
+
+
 ---------------
+===============
 ## v 0.0.2
 ### 추가 기능 소개
  1. 조회 : 작성일 오름차순 리스트 조회를 추가했습니다
