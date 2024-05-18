@@ -14,9 +14,10 @@
  3. 완료 체크 : markTodoAsdone 메서드를 사용해 개별 Todo 의 상태를 true(완료) 로 바꿀 수 있습니다
  4. 완료 조회 : getByIsDoneStatusTodos 메서드의 매개변수(Boolean) 을 지정해 각각 상태에 대한 Todo 만 조회 할 수 있습니다
  5. 댓글 : 개별 Todo 에 댓글을 작성 할 수 있는 기능을 추가했습니다
- 6. 댓글 작성 : addComment 메서드로 개별 Todo 에 댓글을 작성 할 수 있습니다 댓글 입력시 비밀번호가 필요합니다
- 7. 댓글 수정, 삭제 : 해당 댓글을 수정, 삭제할 수 있습니다 단, 작성시 입력한 비밀번호가 일치 할 시 작동합니다
- 8. 비밀번호 관리 : 입력된 비밀번호는 SpringBoot 의 BCryptPasswordEncoer 를 통해 해쉬화 되어 안전하게 db에 저장됩니다
+ 6. 댓글 조회 : 개별 조회 사용시 그곳에 작성된 댓글도 같이 조회되도록 했습니다
+ 7. 댓글 작성 : addComment 메서드로 개별 Todo 에 댓글을 작성 할 수 있습니다 댓글 입력시 비밀번호를 같이 입력 받습니다
+ 8. 댓글 수정, 삭제 : 해당 댓글을 수정, 삭제할 수 있습니다 단, 작성시 입력한 비밀번호가 일치 할 시 작동합니다
+ 9. 비밀번호 관리 : 입력된 비밀번호는 SpringBoot 의 BCryptPasswordEncoer 를 통해 해쉬화 되어 안전하게 db에 저장됩니다
 -----------------
 DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb64193cb45769c9ea95c40c65956?pvs=4 <br>
 Language : Kotlin <br>
