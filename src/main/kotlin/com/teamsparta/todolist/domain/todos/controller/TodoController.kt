@@ -74,4 +74,13 @@ class TodoController(
             .status(HttpStatus.OK)
             .body(todoService.markTodoAsDone(todoId))
     }
+
+    @GetMapping("/{isDone}")
+    fun getTodosByStatusAsDone(
+        @PathVariable isDone: Boolean
+    ) : ResponseEntity<List<TodoResponse>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.getTodosByStatusAsDone(isDone))
+    }
 }
