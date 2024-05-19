@@ -9,6 +9,7 @@
 3. Todo 생성 (creatTodo) : Todo를 생성할 수 있습니다. request 는 author, title, content(nullable) 입니다.
 4. Todo 수정 (updateTodo) : 특정 Todo 를 수정할 수 있습니다. request 는 title, content(nullable) 입니다. 작성시간은 변경되지 않습니다
 5. Todo 삭제 (deleteTodo) : 특정 Todo 를 삭제할 수 있습니다
+6. id 검증 : 개별 Todo 에 대해 조회, 수정, 삭제시 해당 id 가 없을경우 에외처리 ModelNotFound 가 실행됩니다
 
 -----------------------------------------
 
@@ -24,7 +25,8 @@
 
 ![ERD v0 0 1 수정본](https://github.com/Poucqc/todolist/assets/163396796/adb2d944-dcc8-4925-b969-97bc280fc2ad)
 
-### API 명세서 v0.0.1
+### API 명세서 v0.0.1 
+(상세 body 는 Notion 에 게재해 두었습니다)
 
 <table>
   <tr>
@@ -78,15 +80,6 @@
   </tr>
 </table>
 
-
-[TODO 조회](https://www.notion.so/TODO-63c93f72c1ae4494a48d5b3b8df89889?pvs=21)
-
-[TODO 생성](https://www.notion.so/TODO-b71a4ff3aaa147b1bbc7367e53d6d5df?pvs=21)
-
-[TODO 수정](https://www.notion.so/TODO-2789afb7aec6456faa1dc0b7ea75b689?pvs=21)
-
-[TODO 삭제](https://www.notion.so/TODO-1667f7cefa9241e19ec80c2cdc88fc8b?pvs=21)
-
 -------------------------
 
 ## v 0.0.2
@@ -102,17 +95,24 @@
 7. 댓글 작성 : addComment 메서드로 개별 Todo 에 댓글을 작성 할 수 있습니다 댓글 입력시 비밀번호를 같이 입력 받습니다
 8. 댓글 수정, 삭제 : 해당 댓글을 수정, 삭제할 수 있습니다 단, 작성시 입력한 비밀번호가 일치 할 시 작동합니다
 9. 비밀번호 관리 : 입력된 비밀번호는 SpringBoot 의 BCryptPasswordEncoer 를 통해 해쉬화 되어 안전하게 db에 저장됩니다
+10. id 검증 : Todo 와 마찬가지로 Comment 의 id 검증 과 예외처리가 실행됩니다
+11. 비밀번호 검증 : 비밀번호가 틀렸을시 PasswordNotMatchedException 이 실행됩니다
 -------------------------------
 ### DDD v0.0.2
-![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F072a7b34-9d68-4308-8eb5-c7ecaf395620%2FDDD_v0.0.2.jpg?table=block&id=ff86ba68-e25d-431f-acc1-05e9debadc41&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
+![DDD v0.0.2](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F072a7b34-9d68-4308-8eb5-c7ecaf395620%2FDDD_v0.0.2.jpg?table=block&id=ff86ba68-e25d-431f-acc1-05e9debadc41&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
+v0.0.21
+![DDD v0.0.21](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F5b5a53c8-1c07-4b30-ae50-989cd07e6baa%2FDDD_v0.0.21.jpg?table=block&id=d52ae270-c152-4284-ad10-dd01b70a5283&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=1360&userId=&cache=v2)
 
 ### UCD v0.0.2
-![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Fdfee101c-c5bc-417f-a5da-9c1e5133efe8%2FUCD_v0.0.2.jpg?table=block&id=07f7ed76-6b0e-45f1-8ebf-ff649e7eca5f&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
+![UCD v0.0.2](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Fdfee101c-c5bc-417f-a5da-9c1e5133efe8%2FUCD_v0.0.2.jpg?table=block&id=07f7ed76-6b0e-45f1-8ebf-ff649e7eca5f&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
+v0.0.21
+![UCD v0.0.21](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F1bebc3ee-1b0f-4705-abea-3a487d98f5bd%2FUCD_v0.0.21.jpg?table=block&id=fee37898-dc8b-4f3f-a2cd-5322a6bec46a&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
 
 ### ERD v0.0.2
 ![설명](https://savory-ferret-a1e.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Ffc9cea2b-ebf3-41a1-9f9c-1019337c7a0d%2FERD_v0.0.2.png?table=block&id=b9ac54f2-1988-46f0-95da-36f2468e11c3&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=&cache=v2)
 
 ### API 명세서 v0.0.2
+(상세 body 는 Notion 에 게재해 두었습니다)
 <table>
   <tr>
     <th>설명</th>
@@ -174,7 +174,7 @@
     <td>댓글 작성</td>
     <td>POST</td>
     <td>/todos/{todo-id}</td>
-    <td>author,password,content</td>
+    <td>author,password,commentText</td>
     <th>202 OK</th>
     <th>해당 Todo 와 댓글</th>
   </tr>
@@ -182,7 +182,7 @@
     <td>댓글 수정</td>
     <td>PATCH</td>
     <td>/todos/{todo-id}/{comment-id}</td>
-    <td>password,content</td>
+    <td>password,commentText</td>
     <th>202 OK</th>
     <th>해당 Todo 와 댓글</th>
   </tr>
