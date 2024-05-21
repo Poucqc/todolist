@@ -23,11 +23,11 @@ class TodoServiceImpl(
 ) : TodoService {
 
     override fun getAllTodosDesc(): List<TodoResponse> {
-        return todoRepository.findAllTodosByOrderByCreatedAtDesc().map{it.toResponse()}
+        return todoRepository.findAllTodosByOrderByCreatedAtDesc().map { it.toResponse() }
     }
 
     override fun getAllTodosAsc(): List<TodoResponse> {
-        return todoRepository.findAllTodosByOrderByCreatedAtAsc().map{it.toResponse()}
+        return todoRepository.findAllTodosByOrderByCreatedAtAsc().map { it.toResponse() }
     }
 
     override fun getTodoById(todoId: Long): TodoWithCommentResponse {
