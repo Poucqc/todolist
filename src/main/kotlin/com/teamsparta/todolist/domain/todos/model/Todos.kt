@@ -18,8 +18,8 @@ class Todos(
     @Column(name = "title", nullable = false)
     var title: String,
 
-    @Column(name = "content")
-    var content: String? = null,
+    @Column(name = "content", nullable = false)
+    var content: String,
 
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime,

@@ -7,7 +7,7 @@ data class TodoWithCommentResponse(
     val id: Long,
     val title: String,
     val author: String,
-    val content: String?,
+    val content: String,
     val createdAt: LocalDateTime,
     val comments: List<CommentResponse>?
 )
