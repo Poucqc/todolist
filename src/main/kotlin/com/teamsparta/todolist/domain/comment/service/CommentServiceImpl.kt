@@ -1,5 +1,6 @@
 package com.teamsparta.todolist.domain.comment.service
 
+import com.teamsparta.todolist.domain.comment.controller.CommentController
 import com.teamsparta.todolist.domain.comment.dto.AddCommentRequest
 import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.dto.DeleteCommentRequest
@@ -7,6 +8,7 @@ import com.teamsparta.todolist.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.comment.model.toCommentResponse
 import com.teamsparta.todolist.domain.comment.repository.CommentRepository
+import com.teamsparta.todolist.domain.common.ValidationFormLength
 import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
 import com.teamsparta.todolist.domain.todos.repository.TodoRepository
@@ -19,13 +21,13 @@ import org.springframework.transaction.annotation.Transactional
 class CommentServiceImpl(
     private val todoRepository: TodoRepository,
     private val commentRepository: CommentRepository,
-    private val passwordManager: PasswordManager
+    private val passwordManager: PasswordManager,
 ) : CommentService {
-
 
     @Transactional
     override fun addComment(todoId: Long, request: AddCommentRequest): CommentResponse {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+        ValidationFormLength.validateFormLength(request.commentText.length, 50, "comment", "commentText")
         return commentRepository.save(
             Comment(
                 author = request.author,
@@ -39,6 +41,7 @@ class CommentServiceImpl(
     @Transactional
     override fun updateComment(todoId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
         val comment = validateCommentAccess(todoId, commentId, request.password)
+        ValidationFormLength.validateFormLength(request.commentText.length, 50, "comment", "commentText")
        comment.commentText = request.commentText
         return commentRepository.save(comment).toCommentResponse()
     }
