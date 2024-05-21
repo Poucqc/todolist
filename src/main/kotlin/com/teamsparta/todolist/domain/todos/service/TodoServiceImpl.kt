@@ -43,7 +43,8 @@ class TodoServiceImpl(
                 author = request.author,
                 title = request.title,
                 content = request.content,
-                createdAt = LocalDateTime.now()
+                createdAt = LocalDateTime.now(),
+                isDone = false
             )
         ).toResponse()
     }
