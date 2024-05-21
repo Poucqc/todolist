@@ -23,4 +23,11 @@ class GlobalExceptionHandler {
             .status(HttpStatus.BAD_REQUEST)
             .body(ErrorResponse(e.message))
     }
+
+    @ExceptionHandler
+    fun handleValidationException(e: Exception): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
 }
