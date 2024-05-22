@@ -9,5 +9,6 @@ data class TodoWithCommentResponse(
     val author: String,
     val content: String,
     val createdAt: LocalDateTime,
-    val comments: List<CommentResponse>?
+    val done : Boolean,
+    val comments: List<CommentResponse>
 )

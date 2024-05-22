@@ -8,5 +8,5 @@ data class TodoResponse(
     val author: String,
     val content: String,
     val createdAt: LocalDateTime,
-    val isDone: Boolean
+    val done: Boolean
 )

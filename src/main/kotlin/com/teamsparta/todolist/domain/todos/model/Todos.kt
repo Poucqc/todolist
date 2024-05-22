@@ -28,7 +28,7 @@ class Todos(
     var comments: MutableList<Comment>? = mutableListOf(),
 
     @Column(name = "is_done", nullable = false)
-    var isDone: Boolean = false
+    var done: Boolean = false
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,18 +42,18 @@ fun Todos.toResponse(): TodoResponse {
         author = author,
         content = content,
         createdAt = createdAt,
-        isDone = isDone
+        done = done
     )
 }
 
-fun Todos.toResponseWithComments(comments: List<Comment>?): TodoWithCommentResponse {
+fun Todos.toResponseWithComments(comments: List<Comment>): TodoWithCommentResponse {
     return TodoWithCommentResponse(
         id = id!!,
         title = title,
         author = author,
         content = content,
         createdAt = createdAt,
-        comments = comments?.map{ CommentResponse(it.author, it.commentText) }
+        done = done,
+        comments = comments.map{ CommentResponse(it.author, it.commentText) }
     )
 }
-

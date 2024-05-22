@@ -1,8 +1,11 @@
 package com.teamsparta.todolist.domain.todos.dto
 
+import java.time.LocalDateTime
+
 data class CreateTodoRequest (
     val author: String,
     val title: String,
     val content: String,
-    val isDone: Boolean = false
+    val createdAt: LocalDateTime,
+    val done: Boolean = false
 )
