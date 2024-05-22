@@ -4,6 +4,7 @@ import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
+import com.teamsparta.todolist.domain.todos.model.OrderType
 import com.teamsparta.todolist.domain.todos.service.TodoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,18 +16,13 @@ class TodoController(
     private val todoService: TodoService
 ) {
 
-    @GetMapping("/desc")
-    fun getAllTodosDesc() : ResponseEntity<List<TodoResponse>> {
+    @GetMapping()
+    fun getAllTodosDesc(
+        @RequestParam order: OrderType
+    ) : ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodosDesc())
-    }
-
-    @GetMapping("/asc")
-    fun getAllTodosAsc() : ResponseEntity<List<TodoResponse>> {
-        return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(todoService.getAllTodosAsc())
+            .body(todoService.getAllTodosSorted(order))
     }
 
     @GetMapping("/{todoId}")
@@ -75,12 +71,12 @@ class TodoController(
             .body(todoService.markTodoAsDone(todoId))
     }
 
-    @GetMapping("/{isDone}")
+    @GetMapping("/{done}")
     fun getTodosByStatusAsDone(
-        @PathVariable isDone: Boolean
+        @PathVariable done: Boolean
     ) : ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getTodosByStatusAsDone(isDone))
+            .body(todoService.getTodosByStatusAsDone(done))
     }
 }

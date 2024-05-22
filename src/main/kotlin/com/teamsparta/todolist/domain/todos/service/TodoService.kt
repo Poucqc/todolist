@@ -4,12 +4,11 @@ import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
+import com.teamsparta.todolist.domain.todos.model.OrderType
 
 interface TodoService {
 
-    fun getAllTodosDesc() : List<TodoResponse>
-
-    fun getAllTodosAsc() : List<TodoResponse>
+    fun getAllTodosSorted(orderType: OrderType) : List<TodoResponse>
 
     fun getTodoById(todoId: Long) : TodoWithCommentResponse
 
@@ -21,6 +20,8 @@ interface TodoService {
 
     fun markTodoAsDone(todoId: Long) : TodoResponse
 
-    fun getTodosByStatusAsDone(isDone: Boolean) : List<TodoResponse>?
+    fun getTodosByStatusAsDone(done: Boolean) : List<TodoResponse>
+
+    fun getTodosByAuthorName(authorName: String): List<TodoResponse>
 
 }
