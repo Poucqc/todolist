@@ -196,6 +196,124 @@ v0.0.21
   </tr>
 </table>
 
+-----------------------
+## v 0.0.3 ( 이 버전은 branch v0.0.3 에 개제되어 있습니다 )
+
+### 추가기능소개
+1. 작성일별 오름차순,내림차순 조회 기능을 하나의 메서드로 합쳤습니다
+2. 작성자별 Todo 목록 조회 기능을 추가했습니다 (일치하는 작성자가 없을 시 빈 목록이 반환됩니다)
+4. 양식확인 : Todo 와 댓글 작성시 적절한 양식에 따라 작성하지 않는 경우 예외 처리가 발생합니다
+    ( Todo 제목 : 1~200 , Todo 본문 : 1~1000 , 댓글 내용 : 1~50 )
+
+
+-----------------------------------------
+
+### DDD v0.0.3
+![DDD v0.0.3](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Fed8a739c-ebd5-4686-8666-1bde504d1e73%2FDDD_v0.0.3.jpg?table=block&id=33fd64a3-7d31-4390-84e9-27dcf263f301&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=131562d9-a5ac-40fb-acae-5482c29c5c70&cache=v2)
+
+
+### UCD v0.0.3
+![UCD v0.0.3](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2Fb8bbfe07-c751-4d1d-80d4-1e531de39b88%2FUCD_v0.0.3.jpg?table=block&id=6a082078-9393-4926-a9b0-febd42cbe218&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=131562d9-a5ac-40fb-acae-5482c29c5c70&cache=v2)
+
+
+### ERD v0.0.3
+![ERD v0.0.3](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F5a8e769b-f50a-42c1-92fb-1eda9e56a0ab%2F65fbb889-854a-4623-aaba-c3ddbc461c15%2FERD_v0.0.3.png?table=block&id=aba5cf63-3be7-4731-bc5c-41817699f4f2&spaceId=5a8e769b-f50a-42c1-92fb-1eda9e56a0ab&width=2000&userId=131562d9-a5ac-40fb-acae-5482c29c5c70&cache=v2)
+
+
+### API 명세서 v0.0.3
+(상세 body 는 Notion 에 게재해 두었습니다)
+
+<table>
+  <tr>
+    <th>설명</th>
+    <th>method</th>
+    <th>End point</th>
+    <th>Request</th>
+    <th>Status</th>
+    <th>Response</th>
+  </tr>
+  <tr>
+    <td>목록조회</td>
+    <td>GET</td>
+    <td>/todos/{created-at}</td>
+    <td>asc or desc</td>
+    <th>202 OK</th>
+    <th>정렬된 Todo 목록</th>
+  </tr>
+  <tr>
+    <td>목록조회 완료별</td>
+    <td>GET</td>
+    <td>/todos/{is-done}</td>
+    <td>done : Boolean</td>
+    <th>202 OK</th>
+    <th>해당 완료 상태의 Todo 목록</th>
+  </tr>
+   <tr>
+    <td>목록조회 작성자별</td>
+    <td>GET</td>
+    <td>/todos/{author}</td>
+    <td>author</td>
+    <th>202 OK</th>
+    <th>해당 작성자가 작성한 Todo 목록</th>
+  </tr>
+  <tr>
+    <td>개별조회</td>
+    <td>GET</td>
+    <td>/todos/{todo-Id}</td>
+    <td>todoId</td>
+    <th>202 OK</th>
+    <th>해당 ID Todo와 댓글</th>
+  </tr>
+  <tr>
+    <td>생성</td>
+    <td>POST</td>
+    <td>/todos</td>
+    <td>author,title,content</td>
+    <th>201 CREATED</th>
+    <th>작성된 Todo와 댓글</th>
+  </tr>
+  <tr>
+    <td>수정</td>
+    <td>PUT</td>
+    <td>/todos/{todo-id}</td>
+    <td>title,content</td>
+    <th>202 OK</th>
+    <th>수정된 Todo와 댓글</th>
+  </tr>
+  <tr>
+    <td>삭제</td>
+    <td>DELETE</td>
+    <td>/todos/{todo-id}</td>
+    <td></td>
+    <th>204 NO CONTENT</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>댓글 작성</td>
+    <td>POST</td>
+    <td>/todos/{todo-id}</td>
+    <td>author,password,commentText</td>
+    <th>202 OK</th>
+    <th>해당 Todo 와 댓글</th>
+  </tr>
+  <tr>
+    <td>댓글 수정</td>
+    <td>PATCH</td>
+    <td>/todos/{todo-id}/{comment-id}</td>
+    <td>password,commentText</td>
+    <th>202 OK</th>
+    <th>해당 Todo 와 댓글</th>
+  </tr>
+  <tr>
+    <td>댓글 삭제</td>
+    <td>DELETE</td>
+    <td>/todos/{todo-id}/{comment-id}</td>
+    <td>password</td>
+    <th>204 NO CONTENT</th>
+    <th></th>
+  </tr>
+</table>
+
 -----------------
 DDD / UCD / ERD / API 명세서 : https://savory-ferret-a1e.notion.site/30dcb64193cb45769c9ea95c40c65956?pvs=4 <br>
 Language : Kotlin <br>
