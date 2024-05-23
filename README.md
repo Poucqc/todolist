@@ -249,7 +249,7 @@ v0.0.21
   <tr>
     <td>목록조회 완료별</td>
     <td>GET</td>
-    <td>/todos/{is-done}</td>
+    <td>/todos/{done}</td>
     <td>done : Boolean</td>
     <th>202 OK</th>
     <th>해당 완료 상태의 Todo 목록</th>
