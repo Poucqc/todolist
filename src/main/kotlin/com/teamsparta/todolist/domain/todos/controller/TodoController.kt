@@ -4,8 +4,12 @@ import com.teamsparta.todolist.domain.todos.dto.CreateTodoRequest
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
-import com.teamsparta.todolist.domain.todos.model.OrderType
 import com.teamsparta.todolist.domain.todos.service.TodoService
+import org.springdoc.core.annotations.ParameterObject
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -16,67 +20,64 @@ class TodoController(
     private val todoService: TodoService
 ) {
 
-    @GetMapping("/order/{order}")
-    fun getAllTodosByOrder(
-        @PathVariable order: OrderType
-    ) : ResponseEntity<List<TodoResponse>> {
+
+    @GetMapping()
+    fun getAllTodosDesc(
+        @ParameterObject
+        @RequestParam(required = false) author: String?,
+        @RequestParam(required = false) done: Boolean?,
+        @PageableDefault(size = 20, sort = ["createdAt"], direction = Sort.Direction.DESC) pageable: Pageable,
+    ): ResponseEntity<Page<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodosSorted(order))
+            .body(todoService.getAllTodosSorted(author, done, pageable))
     }
 
-    @GetMapping("/id/{todoId}")
+    @GetMapping("/{todoId}")
     fun getTodoById(
         @PathVariable todoId: Long
-    ) : ResponseEntity<TodoWithCommentResponse> {
+    ): ResponseEntity<TodoWithCommentResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.getTodoById(todoId))
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     fun createTodo(
         @RequestBody createTodoRequest: CreateTodoRequest
-    ) : ResponseEntity<TodoResponse> {
+    ): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(todoService.createTodo(createTodoRequest))
     }
 
-    @PutMapping("/update/{todoId}")
+    @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
         @RequestBody updateTodoRequest: UpdateTodoRequest
-    ) : ResponseEntity<TodoResponse> {
+    ): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.updateTodo(todoId, updateTodoRequest))
     }
 
-    @DeleteMapping("/delete/{todoId}")
+    @DeleteMapping("/{todoId}")
     fun deleteTodo(
         @PathVariable todoId: Long
-    ) : ResponseEntity<Unit> {
+    ): ResponseEntity<Unit> {
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()
     }
 
-    @PatchMapping("/toggle/{todoId}")
+    @PatchMapping("/{todoId}/toggle")
     fun markTodoAsDone(
         @PathVariable todoId: Long
-    ) : ResponseEntity<TodoResponse> {
+    ): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.markTodoAsDone(todoId))
     }
-
-    @GetMapping("/status/{done}")
-    fun getTodosByStatusAsDone(
-        @PathVariable done: Boolean
-    ) : ResponseEntity<List<TodoResponse>> {
-        return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(todoService.getTodosByStatusAsDone(done))
-    }
 }
+
+
