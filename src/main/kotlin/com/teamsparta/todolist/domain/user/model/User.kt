@@ -5,7 +5,6 @@ import com.teamsparta.todolist.domain.user.dto.UserResponse
 import jakarta.persistence.*
 
 
-
 @Entity
 @Table(name = "users")
 class User(

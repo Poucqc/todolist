@@ -10,5 +10,5 @@ data class CreateTodoRequest (
     @field:Size(min = 1, max = 1000, message = "content must be between 1 and 1000 characters")
     val content: String,
     val createdAt: LocalDateTime,
-    val done: Boolean = false
+    val done: Boolean = false,
 )
