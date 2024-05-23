@@ -1,7 +1,6 @@
 package com.teamsparta.todolist.domain.todos.dto
 
 import jakarta.validation.constraints.Size
-import org.springframework.validation.annotation.Validated
 import java.time.LocalDateTime
 
 data class CreateTodoRequest (
