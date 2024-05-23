@@ -16,7 +16,7 @@ class TodoController(
     private val todoService: TodoService
 ) {
 
-    @GetMapping()
+    @GetMapping("/order/{order}")
     fun getAllTodosDesc(
         @RequestParam order: OrderType
     ) : ResponseEntity<List<TodoResponse>> {
@@ -25,7 +25,7 @@ class TodoController(
             .body(todoService.getAllTodosSorted(order))
     }
 
-    @GetMapping("/{todoId}")
+    @GetMapping("/id/{todoId}")
     fun getTodoById(
         @PathVariable todoId: Long
     ) : ResponseEntity<TodoWithCommentResponse> {
@@ -34,7 +34,7 @@ class TodoController(
             .body(todoService.getTodoById(todoId))
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     fun createTodo(
         @RequestBody createTodoRequest: CreateTodoRequest
     ) : ResponseEntity<TodoResponse> {
@@ -43,7 +43,7 @@ class TodoController(
             .body(todoService.createTodo(createTodoRequest))
     }
 
-    @PutMapping("/{todoId}")
+    @PutMapping("/update/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
         @RequestBody updateTodoRequest: UpdateTodoRequest
@@ -53,7 +53,7 @@ class TodoController(
             .body(todoService.updateTodo(todoId, updateTodoRequest))
     }
 
-    @DeleteMapping("/{todoId}")
+    @DeleteMapping("/delete/{todoId}")
     fun deleteTodo(
         @PathVariable todoId: Long
     ) : ResponseEntity<Unit> {
@@ -62,7 +62,7 @@ class TodoController(
             .build()
     }
 
-    @PatchMapping("/{todoId}/toggle")
+    @PatchMapping("/toggle/{todoId}")
     fun markTodoAsDone(
         @PathVariable todoId: Long
     ) : ResponseEntity<TodoResponse> {
@@ -71,7 +71,7 @@ class TodoController(
             .body(todoService.markTodoAsDone(todoId))
     }
 
-    @GetMapping("/{done}")
+    @GetMapping("/status/{done}")
     fun getTodosByStatusAsDone(
         @PathVariable done: Boolean
     ) : ResponseEntity<List<TodoResponse>> {
