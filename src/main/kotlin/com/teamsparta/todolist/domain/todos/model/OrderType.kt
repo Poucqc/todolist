@@ -1,6 +1,6 @@
 package com.teamsparta.todolist.domain.todos.model
 
-enum class OrderType {
-    desc,
-    asc
+enum class OrderType(val symbol: String) {
+    ASC("+"),
+    DESC("-")
 }
