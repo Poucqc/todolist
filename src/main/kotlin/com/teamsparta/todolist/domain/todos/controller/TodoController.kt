@@ -17,8 +17,8 @@ class TodoController(
 ) {
 
     @GetMapping("/order/{order}")
-    fun getAllTodosDesc(
-        @RequestParam order: OrderType
+    fun getAllTodosByOrder(
+        @PathVariable order: OrderType
     ) : ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
