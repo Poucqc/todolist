@@ -17,7 +17,7 @@ class Comment(
     @Column(name = "comment", nullable = false)
     var commentText : String,
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
+    @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
     @JoinColumn(name = "todo_id", nullable = false)
     var todo: Todos
 ) {
