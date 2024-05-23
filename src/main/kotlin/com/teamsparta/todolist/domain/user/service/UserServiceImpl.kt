@@ -1,8 +1,6 @@
 package com.teamsparta.todolist.domain.user.service
 
-import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.exception.PasswordNotMatchWhitNameException
-import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
 import com.teamsparta.todolist.domain.exception.UserNotFoundException
 import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
