@@ -1,6 +1,5 @@
 package com.teamsparta.todolist.domain.comment.service
 
-import com.teamsparta.todolist.domain.comment.controller.CommentController
 import com.teamsparta.todolist.domain.comment.dto.AddCommentRequest
 import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.dto.DeleteCommentRequest
@@ -12,7 +11,6 @@ import com.teamsparta.todolist.domain.common.ValidationFormLength
 import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
 import com.teamsparta.todolist.domain.todos.repository.TodoRepository
-
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
