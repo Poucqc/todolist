@@ -12,7 +12,7 @@ import com.teamsparta.todolist.domain.common.ValidationFormLength
 import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
 import com.teamsparta.todolist.domain.todos.repository.TodoRepository
-import com.teamsparta.todolist.security.PasswordManager
+
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional
 class CommentServiceImpl(
     private val todoRepository: TodoRepository,
     private val commentRepository: CommentRepository,
-    private val passwordManager: PasswordManager,
+
 ) : CommentService {
 
     @Transactional
@@ -42,20 +42,20 @@ class CommentServiceImpl(
     override fun updateComment(todoId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
         val comment = validateCommentAccess(todoId, commentId, request.password)
         ValidationFormLength.validateFormLength(request.commentText.length, 50, "comment", "commentText")
-       comment.commentText = request.commentText
+        comment.commentText = request.commentText
         return commentRepository.save(comment).toCommentResponse()
     }
 
     @Transactional
     override fun deleteComment(todoId: Long, commentId: Long, request: DeleteCommentRequest) {
-        val comment= validateCommentAccess(todoId, commentId, request.password)
+        val comment = validateCommentAccess(todoId, commentId, request.password)
         commentRepository.delete(comment)
     }
 
     private fun validateCommentAccess(todoId: Long, commentId: Long, password: String): Comment {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+        todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("comment", commentId)
-        if (!passwordManager.isPasswordValid(comment.password, password)) {
+        if ((comment.password != password)) {
             throw PasswordNotMatchedException(commentId)
         }
         return comment

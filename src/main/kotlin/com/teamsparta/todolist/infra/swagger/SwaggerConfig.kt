@@ -14,7 +14,7 @@ class SwaggerConfig {
         .components(Components())
         .info(
             Info()
-                .title("JB TODOS API")
+                .title("TODOS API")
                 .description("Course API schema")
                 .version("1.0.0")
         )
