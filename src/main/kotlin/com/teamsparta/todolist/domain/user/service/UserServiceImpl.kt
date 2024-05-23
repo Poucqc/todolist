@@ -25,8 +25,9 @@ class UserServiceImpl(
 
     @Transactional
     override fun login(request: UserOperationRequest): UserResponse {
+        val user = userRepository.findByName(request.name) ?: throw UserNotFoundException(request.name)
         if (validatePasswordByName(request)) {
-            TODO("login success")
+            return user.toResponse()
         } else throw PasswordNotMatchWhitNameException(request.name)
     }
 
