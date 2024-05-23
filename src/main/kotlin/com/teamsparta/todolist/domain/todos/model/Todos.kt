@@ -4,6 +4,7 @@ import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
+import com.teamsparta.todolist.domain.user.model.User
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -24,11 +25,15 @@ class Todos(
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime,
 
-    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY, orphanRemoval = true)
     var comments: MutableList<Comment>? = mutableListOf(),
 
     @Column(name = "is_done", nullable = false)
-    var done: Boolean = false
+    var done: Boolean = false,
+
+    @JoinColumn(name = "user_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [(CascadeType.MERGE)])
+    var user : User?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
