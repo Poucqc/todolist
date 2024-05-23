@@ -241,8 +241,8 @@ v0.0.21
   <tr>
     <td>목록조회</td>
     <td>GET</td>
-    <td>/todos/{sort-field}</td>
-    <td>asc or desc</td>
+    <td>/todos</td>
+    <td>Order Type(asc, desc)</td>
     <th>202 OK</th>
     <th>정렬된 Todo 목록</th>
   </tr>
