@@ -5,10 +5,12 @@ import com.teamsparta.todolist.domain.todos.dto.TodoResponse
 import com.teamsparta.todolist.domain.todos.dto.TodoWithCommentResponse
 import com.teamsparta.todolist.domain.todos.dto.UpdateTodoRequest
 import com.teamsparta.todolist.domain.todos.model.OrderType
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 interface TodoService {
 
-    fun getAllTodosSorted(orderType: OrderType) : List<TodoResponse>
+    fun getAllTodosSorted(order: OrderType, pageable: Pageable) : Page<TodoResponse>
 
     fun getTodoById(todoId: Long) : TodoWithCommentResponse
 
@@ -20,8 +22,8 @@ interface TodoService {
 
     fun markTodoAsDone(todoId: Long) : TodoResponse
 
-    fun getTodosByStatusAsDone(done: Boolean) : List<TodoResponse>
+    fun getTodosByStatusAsDone(done: Boolean, pageable: Pageable) : Page<TodoResponse>
 
-    fun getTodosByAuthorName(authorName: String): List<TodoResponse>
+    fun getTodosByAuthorName(authorName: String, pageable: Pageable): Page<TodoResponse>
 
 }
