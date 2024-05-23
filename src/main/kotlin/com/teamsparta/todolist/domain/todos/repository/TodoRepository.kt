@@ -1,6 +1,8 @@
 package com.teamsparta.todolist.domain.todos.repository
 
 import com.teamsparta.todolist.domain.todos.model.Todos
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
@@ -8,12 +10,9 @@ import org.springframework.stereotype.Repository
 interface TodoRepository: JpaRepository<Todos, Long> {
 
 
-    fun findAllByOrderByCreatedAtDesc(): List<Todos>
 
-    fun findAllByOrderByCreatedAtAsc(): List<Todos>
+    fun findAllByDone(done: Boolean, pageable: Pageable): Page<Todos>
 
-    fun findAllByDoneOrderByCreatedAtDesc(done: Boolean): List<Todos>
-
-    fun findTodosByAuthor(author: String): List<Todos>
+    fun findTodosByAuthor(author: String, pageable: Pageable): Page<Todos>
 
 }
