@@ -242,25 +242,9 @@ v0.0.21
     <td>목록조회</td>
     <td>GET</td>
     <td>/todos</td>
-    <td>Order Type(asc, desc)</td>
+    <td>Order Type(asc, desc), author?, done?</td>
     <th>202 OK</th>
-    <th>정렬된 Todo 목록</th>
-  </tr>
-  <tr>
-    <td>목록조회 완료별</td>
-    <td>GET</td>
-    <td>/todos/{done}</td>
-    <td>done : Boolean</td>
-    <th>202 OK</th>
-    <th>해당 완료 상태의 Todo 목록</th>
-  </tr>
-   <tr>
-    <td>목록조회 작성자별</td>
-    <td>GET</td>
-    <td>/todos/{author}</td>
-    <td>author</td>
-    <th>202 OK</th>
-    <th>해당 작성자가 작성한 Todo 목록</th>
+    <th>페이징된 Todo 목록</th>
   </tr>
   <tr>
     <td>개별조회</td>
