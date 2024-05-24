@@ -25,7 +25,7 @@ class Todos(
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime,
 
-    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "todos" ,cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY, orphanRemoval = true)
     var comments: MutableList<Comment>? = mutableListOf(),
 
     @Column(name = "is_done", nullable = false)
