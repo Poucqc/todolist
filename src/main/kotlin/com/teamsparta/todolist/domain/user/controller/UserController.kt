@@ -1,5 +1,6 @@
 package com.teamsparta.todolist.domain.user.controller
 
+import com.teamsparta.todolist.domain.user.dto.TokenResponse
 import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
 import com.teamsparta.todolist.domain.user.service.UserService
@@ -16,7 +17,7 @@ class UserController(
     @PostMapping("/login")
     fun login(
         @RequestBody request: UserOperationRequest,
-    ) : ResponseEntity<UserResponse> {
+    ) : ResponseEntity<TokenResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(userService.login(request))
@@ -30,6 +31,8 @@ class UserController(
             .status(HttpStatus.CREATED)
             .body(userService.registerUser(request))
     }
+
+
 
     @PatchMapping("/update/{user-id}")
     fun resetPassword(

@@ -2,17 +2,20 @@ package com.teamsparta.todolist.domain.user.service
 
 import com.teamsparta.todolist.domain.exception.PasswordNotMatchWhitNameException
 import com.teamsparta.todolist.domain.exception.UserNotFoundException
+import com.teamsparta.todolist.domain.user.dto.TokenResponse
 import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
 import com.teamsparta.todolist.domain.user.model.User
 import com.teamsparta.todolist.domain.user.model.toResponse
 import com.teamsparta.todolist.domain.user.repository.UserRepository
+import com.teamsparta.todolist.security.JwtTokenUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserServiceImpl(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val jwtTokenUtil: JwtTokenUtil,
 ) : UserService {
     override fun registerUser(request: UserOperationRequest): UserResponse {
         return userRepository.save(
@@ -24,11 +27,14 @@ class UserServiceImpl(
     }
 
     @Transactional
-    override fun login(request: UserOperationRequest): UserResponse {
+    override fun login(request: UserOperationRequest): TokenResponse {
         val user = userRepository.findByName(request.name) ?: throw UserNotFoundException(request.name)
         if (validatePasswordByName(request)) {
-            return user.toResponse()
-        } else throw PasswordNotMatchWhitNameException(request.name)
+            val token = jwtTokenUtil.generateToken(user = user.toResponse())
+            return TokenResponse(token.toString())
+        } else {
+            throw PasswordNotMatchWhitNameException(request.name)
+        }
     }
 
     @Transactional
