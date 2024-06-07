@@ -1,0 +1,18 @@
+spring:
+  jpa:
+    show-sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        orm:
+          jdbc:
+            bind: trace
+      springframework:
+        security: debug
+auth:
+  jwt:
+    issuer: "project.todolist.com"
+    secretKey: "kJ63Qe7E6zqQ2fOQ2z9dNiTsP1_bBnIF"
+    tokenExpiration: 168

@@ -1,9 +1,6 @@
 package com.teamsparta.todolist.domain.exception.dto
 
-import com.teamsparta.todolist.domain.exception.ModelNotFoundException
-import com.teamsparta.todolist.domain.exception.PasswordNotMatchWhitNameException
-import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
-import com.teamsparta.todolist.domain.exception.UserNotFoundException
+import com.teamsparta.todolist.domain.exception.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -37,6 +34,20 @@ class GlobalExceptionHandler {
     fun handlePasswordNotMatchedException(e: PasswordNotMatchWhitNameException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
+
+    @ExceptionHandler
+    fun handleNoPermissionException(e: NoPermissionException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
+
+    @ExceptionHandler
+    fun handleInvalidCredentialException(e: InvalidCredentialException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
             .body(ErrorResponse(e.message))
     }
 }

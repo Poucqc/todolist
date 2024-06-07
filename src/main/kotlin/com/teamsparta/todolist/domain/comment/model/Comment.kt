@@ -2,6 +2,7 @@ package com.teamsparta.todolist.domain.comment.model
 
 import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.todos.model.Todos
+import com.teamsparta.todolist.domain.user.model.User
 import jakarta.persistence.*
 
 @Entity
@@ -17,9 +18,13 @@ class Comment(
     @Column(name = "comment", nullable = false)
     var commentText : String,
 
-    @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.EAGER)
+    @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id", nullable = false)
-    var todo: Todos
+    var todos: Todos,
+
+    @ManyToOne(cascade = [(CascadeType.MERGE)], fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    var user: User?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

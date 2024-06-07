@@ -1,64 +1,75 @@
 package com.teamsparta.todolist.domain.user.service
 
-import com.teamsparta.todolist.domain.exception.PasswordNotMatchWhitNameException
-import com.teamsparta.todolist.domain.exception.UserNotFoundException
-import com.teamsparta.todolist.domain.user.dto.TokenResponse
+import com.teamsparta.todolist.domain.exception.InvalidCredentialException
+import com.teamsparta.todolist.domain.user.dto.LoginResponse
 import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
 import com.teamsparta.todolist.domain.user.model.User
 import com.teamsparta.todolist.domain.user.model.toResponse
 import com.teamsparta.todolist.domain.user.repository.UserRepository
-import com.teamsparta.todolist.security.JwtTokenUtil
+import com.teamsparta.todolist.security.jwt.JwtPlugin
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserServiceImpl(
     private val userRepository: UserRepository,
-    private val jwtTokenUtil: JwtTokenUtil,
+    private val passwordEncoder: PasswordEncoder,
+    private val jwtPlugin: JwtPlugin
 ) : UserService {
+
     override fun registerUser(request: UserOperationRequest): UserResponse {
+        if (userRepository.existsByUsername(request.username)) {
+            throw IllegalArgumentException("Username ${request.username} already registered")
+        }
         return userRepository.save(
             User(
-                name = request.name,
-                password = request.password,
+                username = request.username,
+                password = passwordEncoder.encode(request.password),
+                role = request.role
             )
         ).toResponse()
     }
 
-    @Transactional
-    override fun login(request: UserOperationRequest): TokenResponse {
-        val user = userRepository.findByName(request.name) ?: throw UserNotFoundException(request.name)
-        if (validatePasswordByName(request)) {
-            val token = jwtTokenUtil.generateToken(user = user.toResponse())
-            return TokenResponse(token.toString())
-        } else {
-            throw PasswordNotMatchWhitNameException(request.name)
+    override fun login(request: UserOperationRequest): LoginResponse {
+        val user = userRepository.findByUsername(request.username)
+            ?: throw UsernameNotFoundException("Username ${request.username} not found")
+        if (!passwordEncoder.matches(request.password, user.password) || request.role != user.role) {
+            throw InvalidCredentialException()
         }
+        return LoginResponse(
+            accessToken = jwtPlugin.generateAccessToken(
+                subject = user.id.toString(),
+                username = user.username,
+                role = user.role
+            )
+        )
     }
 
     @Transactional
-    override fun resetPassword(request: UserOperationRequest): UserResponse {
-        val user = userRepository.findByName(request.name) ?: throw UserNotFoundException(request.name)
-        if (validatePasswordByName(request)) {
-            user.password = request.password
-            return userRepository.save(user).toResponse()
-        } else throw PasswordNotMatchWhitNameException(request.name)
+    override fun updateProfile(request: UserOperationRequest): UserResponse {
+        val user = userRepository.findByUsername(request.username)
+            ?: throw UsernameNotFoundException("Username ${request.username} not found")
+        if (!passwordEncoder.matches(request.password, user.password)) {
+            throw InvalidCredentialException()
+        }
+        user.username = request.username
+        user.password = passwordEncoder.encode(request.password)
+        user.role = request.role
+
+        return user.toResponse()
     }
 
-    @Transactional
     override fun resignUser(request: UserOperationRequest) {
-        val user = userRepository.findByName(request.name) ?: throw UserNotFoundException(request.name)
-        if (validatePasswordByName(request)) {
-            userRepository.delete(user)
-            println("resigned user ${user.name}")
+        val user = userRepository.findByUsername(request.username)
+            ?:throw UsernameNotFoundException("Username ${request.username} not found")
+        if(!passwordEncoder.matches(request.password, user.password)) {
+            throw InvalidCredentialException()
         }
+        userRepository.delete(user)
+        println("Your Account has been successfully resigned")
     }
-
-    private fun validatePasswordByName(request: UserOperationRequest): Boolean {
-        val user = userRepository.findByName(request.name) ?: throw UserNotFoundException(request.name)
-        return user.password == request.password
-    }
-
-
 }

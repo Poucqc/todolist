@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CommentRepository: JpaRepository<Comment, Long> {
 
-    @Query("select c from Comment c join fetch c.todo t where t.id = :todoId")
+    @Query("select c from Comment c join fetch c.todos t where t.id = :todoId")
     fun findCommentByTodoId(todoId: Long): List<Comment>
 }

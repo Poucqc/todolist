@@ -1,5 +1,6 @@
 package com.teamsparta.todolist.domain.todos.dto
 
+import com.teamsparta.todolist.domain.user.model.User
 import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 
