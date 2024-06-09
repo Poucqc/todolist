@@ -1,11 +1,13 @@
 package com.teamsparta.todolist.domain.user.controller
 
+import com.teamsparta.todolist.domain.user.dto.LoginRequest
 import com.teamsparta.todolist.domain.user.dto.LoginResponse
-import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
+import com.teamsparta.todolist.domain.user.dto.RegisterRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
 import com.teamsparta.todolist.domain.user.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/user")
@@ -16,7 +18,7 @@ class UserController(
 
     @PostMapping("/login")
     fun login(
-        @RequestBody request: UserOperationRequest,
+        @RequestBody request: LoginRequest,
     ) : ResponseEntity<LoginResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -25,7 +27,7 @@ class UserController(
 
     @PostMapping("/register")
     fun register(
-        @RequestBody request: UserOperationRequest,
+        @RequestBody request: RegisterRequest,
     ) : ResponseEntity<UserResponse> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
@@ -34,9 +36,10 @@ class UserController(
 
 
 
+
     @PatchMapping("/update/{user-id}")
     fun resetPassword(
-        @RequestBody request: UserOperationRequest,
+        @RequestBody request: LoginRequest,
         @PathVariable("user-id") id: Long
     ) : ResponseEntity<UserResponse> {
         return ResponseEntity
@@ -47,7 +50,7 @@ class UserController(
     @DeleteMapping("/{user-id}")
     fun resignUser(
         @PathVariable("user-id") userId: Long,
-        @RequestBody request: UserOperationRequest
+        @RequestBody request: LoginRequest
     ) : ResponseEntity<Unit> {
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)

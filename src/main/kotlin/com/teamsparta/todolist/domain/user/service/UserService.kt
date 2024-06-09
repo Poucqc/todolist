@@ -1,20 +1,19 @@
 package com.teamsparta.todolist.domain.user.service
 
+import com.teamsparta.todolist.domain.user.dto.LoginRequest
 import com.teamsparta.todolist.domain.user.dto.LoginResponse
-import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
+import com.teamsparta.todolist.domain.user.dto.RegisterRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
-import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
 
 
 interface UserService {
 
-    fun registerUser(request: UserOperationRequest) : UserResponse
+    fun registerUser(request: RegisterRequest) : UserResponse
 
-    fun login(request: UserOperationRequest) : LoginResponse
+    fun login(request: LoginRequest) : LoginResponse
 
-    fun updateProfile(request: UserOperationRequest) : UserResponse
+    fun updateProfile(request: LoginRequest) : UserResponse
 
-    fun resignUser(request: UserOperationRequest)
+    fun resignUser(request: LoginRequest)
 
 }

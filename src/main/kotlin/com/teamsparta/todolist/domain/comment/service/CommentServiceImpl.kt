@@ -97,7 +97,8 @@ class CommentServiceImpl(
 
     private fun validateCommentAccess(todoId: Long, commentId: Long, password: String): Comment {
         validateTodoAccess(todoId)
-        val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("comment", commentId)
+        val comment = commentRepository.findByIdOrNull(commentId)
+            ?: throw ModelNotFoundException("comment", commentId.toString())
         if ((comment.password != password)) {
             throw PasswordNotMatchedException(commentId)
         }
@@ -105,7 +106,8 @@ class CommentServiceImpl(
     }
 
     private fun validateTodoAccess(todoId: Long): Todos {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+        val todo = todoRepository.findByIdOrNull(todoId)
+            ?: throw ModelNotFoundException("todo", todoId.toString())
         return todo
     }
 

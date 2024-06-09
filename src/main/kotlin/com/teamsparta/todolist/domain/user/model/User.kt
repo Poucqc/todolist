@@ -2,12 +2,9 @@ package com.teamsparta.todolist.domain.user.model
 
 import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.todos.model.Todos
-import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
+import com.teamsparta.todolist.domain.user.dto.LoginResponse
 import com.teamsparta.todolist.domain.user.dto.UserResponse
 import jakarta.persistence.*
-import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.UserDetails
 
 
 @Entity
@@ -39,4 +36,3 @@ fun User.toResponse(): UserResponse {
         role = role
     )
 }
-

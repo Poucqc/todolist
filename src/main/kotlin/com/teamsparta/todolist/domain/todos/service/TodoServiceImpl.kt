@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -44,21 +45,20 @@ class TodoServiceImpl(
 
 
     override fun getTodoById(todoId: Long): TodoWithCommentResponse {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+        val todo = todoRepository.findByIdOrNull(todoId)
+            ?: throw ModelNotFoundException("todo", todoId.toString())
         val comments = commentRepository.findCommentByTodoId(todoId)
         return todo.toResponseWithComments(comments)
     }
 
     @Transactional
-    override fun createTodo(request: CreateTodoRequest): TodoResponse {
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-        val author = currentUser?.username ?: request.author
-        val user = currentUser?.let { userRepository.findByUsername(it.username) }
+    override fun createTodo(request: CreateTodoRequest, username: String): TodoResponse {
+        val user = userRepository.findByUsername(username)
+            ?: throw ModelNotFoundException("user", username)
 
         return todoRepository.save(
             Todos(
-                author = author,
+                author = username,
                 title = request.title,
                 content = request.content,
                 createdAt = LocalDateTime.now(),
@@ -70,35 +70,42 @@ class TodoServiceImpl(
 
 
     @Transactional
-    override fun updateTodo(todoId: Long, request: UpdateTodoRequest): TodoResponse {
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-                ?: throw NoPermissionException("updateTodo")
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+    override fun updateTodo(todoId: Long, request: UpdateTodoRequest, username: String): TodoResponse {
+        val user = userRepository.findByUsername(username)
+            ?: throw ModelNotFoundException("user", username)
+
+        val todo = todoRepository.findByIdOrNull(todoId)
+            ?: throw ModelNotFoundException("todo", todoId.toString())
+
+        if(username != todo.author) throw NoPermissionException("update")
+
         val (title, content) = request
         todo.title = title
         todo.content = content
 
-        return todoRepository.save(todo).toResponse()
+        return todo.toResponse()
     }
 
     @Transactional
-    override fun deleteTodo(todoId: Long) {
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-                ?: throw NoPermissionException("deleteTodo")
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+    override fun deleteTodo(todoId: Long, username: String) {
+
+        val todo = todoRepository.findByIdOrNull(todoId)
+            ?: throw ModelNotFoundException("todo", todoId.toString())
+
+        if (username != todo.author) throw NoPermissionException("delete")
+
         todoRepository.delete(todo)
     }
 
     @Transactional
-    override fun markTodoAsDone(todoId: Long): TodoResponse {
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-                ?: throw NoPermissionException("markTodoAsDone")
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
+    override fun markTodoAsDone(todoId: Long, username: String): TodoResponse {
+        val todo = todoRepository.findByIdOrNull(todoId)
+            ?: throw ModelNotFoundException("todo", todoId.toString())
+
+        if (username != todo.author) throw NoPermissionException("mark")
+
         todo.done = true
-        return todoRepository.save(todo).toResponse()
+        return todo.toResponse()
     }
 
 }

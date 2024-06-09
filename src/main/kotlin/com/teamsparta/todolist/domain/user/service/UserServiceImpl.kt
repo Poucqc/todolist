@@ -1,14 +1,14 @@
 package com.teamsparta.todolist.domain.user.service
 
 import com.teamsparta.todolist.domain.exception.InvalidCredentialException
+import com.teamsparta.todolist.domain.user.dto.LoginRequest
 import com.teamsparta.todolist.domain.user.dto.LoginResponse
-import com.teamsparta.todolist.domain.user.dto.UserOperationRequest
+import com.teamsparta.todolist.domain.user.dto.RegisterRequest
 import com.teamsparta.todolist.domain.user.dto.UserResponse
 import com.teamsparta.todolist.domain.user.model.User
 import com.teamsparta.todolist.domain.user.model.toResponse
 import com.teamsparta.todolist.domain.user.repository.UserRepository
 import com.teamsparta.todolist.security.jwt.JwtPlugin
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -21,7 +21,7 @@ class UserServiceImpl(
     private val jwtPlugin: JwtPlugin
 ) : UserService {
 
-    override fun registerUser(request: UserOperationRequest): UserResponse {
+    override fun registerUser(request: RegisterRequest): UserResponse {
         if (userRepository.existsByUsername(request.username)) {
             throw IllegalArgumentException("Username ${request.username} already registered")
         }
@@ -34,10 +34,10 @@ class UserServiceImpl(
         ).toResponse()
     }
 
-    override fun login(request: UserOperationRequest): LoginResponse {
+    override fun login(request: LoginRequest): LoginResponse {
         val user = userRepository.findByUsername(request.username)
             ?: throw UsernameNotFoundException("Username ${request.username} not found")
-        if (!passwordEncoder.matches(request.password, user.password) || request.role != user.role) {
+        if (!passwordEncoder.matches(request.password, user.password)) {
             throw InvalidCredentialException()
         }
         return LoginResponse(
@@ -50,20 +50,19 @@ class UserServiceImpl(
     }
 
     @Transactional
-    override fun updateProfile(request: UserOperationRequest): UserResponse {
+    override fun updateProfile(request: LoginRequest): UserResponse {
         val user = userRepository.findByUsername(request.username)
             ?: throw UsernameNotFoundException("Username ${request.username} not found")
-        if (!passwordEncoder.matches(request.password, user.password)) {
-            throw InvalidCredentialException()
-        }
-        user.username = request.username
-        user.password = passwordEncoder.encode(request.password)
-        user.role = request.role
-
-        return user.toResponse()
+        return userRepository.save(
+            User(
+                username = request.username,
+                password = passwordEncoder.encode(request.password),
+                role = user.role
+            )
+        ).toResponse()
     }
 
-    override fun resignUser(request: UserOperationRequest) {
+    override fun resignUser(request: LoginRequest) {
         val user = userRepository.findByUsername(request.username)
             ?:throw UsernameNotFoundException("Username ${request.username} not found")
         if(!passwordEncoder.matches(request.password, user.password)) {
