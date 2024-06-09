@@ -4,14 +4,13 @@ import com.teamsparta.todolist.domain.comment.dto.*
 import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.comment.model.toCommentResponse
 import com.teamsparta.todolist.domain.comment.repository.CommentRepository
+import com.teamsparta.todolist.domain.exception.InvalidCredentialException
 import com.teamsparta.todolist.domain.exception.ModelNotFoundException
 import com.teamsparta.todolist.domain.exception.NoPermissionException
-import com.teamsparta.todolist.domain.exception.PasswordNotMatchedException
 import com.teamsparta.todolist.domain.todos.model.Todos
 import com.teamsparta.todolist.domain.todos.repository.TodoRepository
 import com.teamsparta.todolist.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -24,31 +23,13 @@ class CommentServiceImpl(
     ) : CommentService {
 
     @Transactional
-    override fun addComment(todoId: Long, request: AddCommentRequest): CommentResponse {
-        val todo = validateTodoAccess(todoId)
+    override fun addComment(todoId: Long, request: CommentRequest, username : String): CommentResponse {
+        val todo = findTodoNullSafe(todoId)
+        val user = userRepository.findByUsername(username)
+            ?: throw ModelNotFoundException("user", username)
         return commentRepository.save(
             Comment(
-                author = request.author,
-                password = request.password,
-                commentText = request.commentText,
-                todos = todo,
-                user = null
-            )
-        ).toCommentResponse()
-    }
-
-    @Transactional
-    override fun addUserComment(todoId: Long, request: UserCommentRequest): CommentResponse {
-        val todo = validateTodoAccess(todoId)
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-                ?: throw NoPermissionException("this")
-        val author = currentUser.username
-        val user = currentUser.let { userRepository.findByUsername(it.username) }
-        return commentRepository.save(
-            Comment(
-                author = user!!.username,
-                password = user.password,
+                author = username,
                 commentText = request.commentText,
                 todos = todo,
                 user = user
@@ -58,57 +39,37 @@ class CommentServiceImpl(
 
 
     @Transactional
-    override fun updateComment(todoId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
-        val comment = validateCommentAccess(todoId, commentId, request.password)
+    override fun updateComment(todoId: Long, commentId: Long, request: CommentRequest, username: String): CommentResponse {
+        findTodoNullSafe(todoId)
+        val comment = findCommentNullSafe(commentId)
+        if (comment.author != username) throw InvalidCredentialException()
         comment.commentText = request.commentText
-        return commentRepository.save(comment).toCommentResponse()
+        return comment.toCommentResponse()
     }
 
-    @Transactional
-    override fun updateUserComment(todoId: Long, commentId: Long, request: UserCommentRequest): CommentResponse {
-        var todo = validateTodoAccess(todoId)
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-                ?: throw NoPermissionException("this")
-        val author = currentUser.username
-        val user = currentUser.let { userRepository.findByUsername(it.username) }
-        val comment = validateCommentAccess(todoId, commentId, user!!.password)
-        comment.commentText = request.commentText
-
-        return commentRepository.save(comment).toCommentResponse()
-    }
 
     @Transactional
-    override fun deleteComment(todoId: Long, commentId: Long, request: DeleteCommentRequest) {
-        val comment = validateCommentAccess(todoId, commentId, request.password)
+    override fun deleteComment(todoId: Long, commentId: Long, username: String) {
+        findTodoNullSafe(todoId)
+        val comment = findCommentNullSafe(commentId)
+        if (comment.author != username) throw InvalidCredentialException()
         commentRepository.delete(comment)
+        println("삭제되었습니다")
     }
 
-    @Transactional
-    override fun deleteUserComment(todoId: Long, commentId: Long) {
-        validateTodoAccess(todoId)
-        val currentUser =
-            SecurityContextHolder.getContext().authentication.principal as? org.springframework.security.core.userdetails.User
-                ?: throw NoPermissionException("this")
-        val user = currentUser.let { userRepository.findByUsername(it.username) }
-        val comment = validateCommentAccess(todoId, commentId, user!!.password)
-        commentRepository.delete(comment)
-    }
 
-    private fun validateCommentAccess(todoId: Long, commentId: Long, password: String): Comment {
-        validateTodoAccess(todoId)
-        val comment = commentRepository.findByIdOrNull(commentId)
-            ?: throw ModelNotFoundException("comment", commentId.toString())
-        if ((comment.password != password)) {
-            throw PasswordNotMatchedException(commentId)
-        }
-        return comment
-    }
 
-    private fun validateTodoAccess(todoId: Long): Todos {
+    private fun findTodoNullSafe(todoId: Long): Todos {
         val todo = todoRepository.findByIdOrNull(todoId)
             ?: throw ModelNotFoundException("todo", todoId.toString())
         return todo
     }
+
+    private fun findCommentNullSafe(commentId: Long): Comment {
+        val comment = commentRepository.findByIdOrNull(commentId)
+            ?: throw ModelNotFoundException("comment", commentId.toString())
+        return comment
+    }
+
 
 }

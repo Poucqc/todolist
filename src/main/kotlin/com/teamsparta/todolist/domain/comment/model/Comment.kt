@@ -12,9 +12,6 @@ class Comment(
     @Column(name = "author", nullable = false)
     val author: String,
 
-    @Column(name = "password", nullable = false)
-    val password: String,
-
     @Column(name = "comment", nullable = false)
     var commentText : String,
 
