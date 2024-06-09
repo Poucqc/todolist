@@ -1,12 +1,12 @@
 package com.teamsparta.todolist.domain.comment.service
 
-import com.teamsparta.todolist.domain.comment.dto.*
+import com.teamsparta.todolist.domain.comment.dto.CommentRequest
+import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.model.Comment
 import com.teamsparta.todolist.domain.comment.model.toCommentResponse
 import com.teamsparta.todolist.domain.comment.repository.CommentRepository
 import com.teamsparta.todolist.domain.exception.InvalidCredentialException
 import com.teamsparta.todolist.domain.exception.ModelNotFoundException
-import com.teamsparta.todolist.domain.exception.NoPermissionException
 import com.teamsparta.todolist.domain.todos.model.Todos
 import com.teamsparta.todolist.domain.todos.repository.TodoRepository
 import com.teamsparta.todolist.domain.user.repository.UserRepository

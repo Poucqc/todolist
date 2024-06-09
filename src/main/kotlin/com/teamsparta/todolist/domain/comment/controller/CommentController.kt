@@ -1,7 +1,7 @@
 package com.teamsparta.todolist.domain.comment.controller
 
-import com.teamsparta.todolist.domain.comment.dto.*
-import com.teamsparta.todolist.domain.comment.repository.CommentRepository
+import com.teamsparta.todolist.domain.comment.dto.CommentRequest
+import com.teamsparta.todolist.domain.comment.dto.CommentResponse
 import com.teamsparta.todolist.domain.comment.service.CommentService
 import com.teamsparta.todolist.security.SecurityUtil
 import org.springframework.http.HttpStatus
