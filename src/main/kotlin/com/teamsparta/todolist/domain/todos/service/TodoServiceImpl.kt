@@ -16,8 +16,6 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -71,8 +69,6 @@ class TodoServiceImpl(
 
     @Transactional
     override fun updateTodo(todoId: Long, request: UpdateTodoRequest, username: String): TodoResponse {
-        val user = userRepository.findByUsername(username)
-            ?: throw ModelNotFoundException("user", username)
 
         val todo = todoRepository.findByIdOrNull(todoId)
             ?: throw ModelNotFoundException("todo", todoId.toString())
