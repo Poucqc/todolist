@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class CommentController(
     private val commentService: CommentService,
-    commentRepository: CommentRepository
 ) {
-
-    private final val commentRepository: CommentRepository = TODO("initialize me")
 
     @PostMapping()
     fun addComment(
