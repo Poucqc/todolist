@@ -6,6 +6,7 @@ import com.teamsparta.todolist.domain.comment.service.CommentService
 import com.teamsparta.todolist.security.SecurityUtil
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 
@@ -15,6 +16,7 @@ class CommentController(
     private val commentService: CommentService,
 ) {
 
+    @PreAuthorize("hasRole('User')")
     @PostMapping()
     fun addComment(
         @PathVariable("todoId") todoId: Long,
@@ -26,7 +28,7 @@ class CommentController(
             .body(commentService.addComment(todoId, addCommentRequest, username))
     }
 
-
+    @PreAuthorize("hasRole('User')")
     @PutMapping("/update/{commentId}")
     fun updateComment(
         @PathVariable("todoId") todoId: Long,
@@ -39,7 +41,7 @@ class CommentController(
             .body(commentService.updateComment(todoId, commentId, updateCommentRequest, username))
     }
 
-
+    @PreAuthorize("hasRole('User')")
     @DeleteMapping("/delete/{commentId}")
     fun deleteComment(
         @PathVariable("todoId") todoId: Long,

@@ -44,7 +44,7 @@ class TodoController(
             .body(todoService.getTodoById(todoId))
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('User')")
     @PostMapping()
     fun createTodo(
         @RequestBody createTodoRequest: CreateTodoRequest
@@ -55,7 +55,7 @@ class TodoController(
             .body(todoService.createTodo(createTodoRequest, username))
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('User')")
     @PutMapping("/{todoId}")
     fun updateTodo(
         @PathVariable todoId: Long,
@@ -67,7 +67,7 @@ class TodoController(
             .body(todoService.updateTodo(todoId, updateTodoRequest, username))
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('User')")
     @DeleteMapping("/{todoId}")
     fun deleteTodo(
         @PathVariable todoId: Long
@@ -79,7 +79,7 @@ class TodoController(
             .build()
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('User')")
     @PatchMapping("/{todoId}/toggle")
     fun markTodoAsDone(
         @PathVariable todoId: Long

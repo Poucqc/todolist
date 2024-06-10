@@ -11,4 +11,6 @@ data class UserPrincipal(
 ) {
     constructor(userId: Long, username: String, role: Set<String>)
             : this(userId, username, role.map{ SimpleGrantedAuthority("ROLE_$it") })
+
+    fun getUsername() : String = username
 }
